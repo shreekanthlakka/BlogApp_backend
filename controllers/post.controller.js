@@ -67,7 +67,10 @@ const getPosts = asyncHandler(async (req, res) => {
 
 const getSinglePost = asyncHandler(async (req, res) => {
     const { postId } = req.params;
-    const post = await Post.findById(postId);
+    const post = await Post.findById(postId).populate("authorId", [
+        "username",
+        "email",
+    ]);
     if (!post) {
         throw new CustomError(400, "not able to find post");
     }
