@@ -44,8 +44,12 @@ const createPost = asyncHandler(async (req, res) => {
     if (!post) {
         throw new CustomError(400, "failed to create post");
     }
+    const populatedPost = await Post.findById(post._id).populate("authorId", [
+        "username",
+        "email",
+    ]);
     res.status(201).json(
-        new CustomResponse(201, "Post created sucessfully", post)
+        new CustomResponse(201, "Post created sucessfully", populatedPost)
     );
 });
 
