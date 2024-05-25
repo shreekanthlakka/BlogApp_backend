@@ -24,7 +24,7 @@ app.use((req, res, next) => {
 });
 
 const allowedOrigins = [
-    "http://localhost:5000",
+    "http://localhost:5173",
     "https://blogapp-backend-ko6y.onrender.com",
 ];
 app.use((req, res, next) => {
