@@ -92,7 +92,7 @@ const deletePost = asyncHandler(async (req, res) => {
             "not able to find and delete comments of post"
         );
     }
-    await post.remove();
+    await Post.deleteOne({ _id: postId });
     res.status(200).json(
         new CustomResponse(200, "post deleted sucessfully", {})
     );
