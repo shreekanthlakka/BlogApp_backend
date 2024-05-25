@@ -7,6 +7,7 @@ import {
     uploadToCloudinary,
 } from "../utils/uploadToCloudinary.js";
 import Post from "../models/post.model.js";
+import Comment from "../models/comment.model.js";
 
 const createPost = asyncHandler(async (req, res) => {
     const errors = validationResult(req);
@@ -81,9 +82,22 @@ const deletePost = asyncHandler(async (req, res) => {
             console.log("RES => ", res);
         }
     }
-    await post.remove();
+    const commentsOfPosts = await Comment.findManyAndDelete({
+        authorId: req.user._id,
+        postId: postId,
+    });
+    if (!commentsOfPosts) {
+        throw new CustomError(
+            400,
+            "not able to find and delete comments of post"
+        );
+    }
+    const postDeleated = await post.remove();
     res.status(200).json(
-        new CustomResponse(200, "post deleted sucessfully", {})
+        new CustomResponse(200, "post deleted sucessfully", {
+            deleatedPost: postDeleated,
+            commentsDeleted: commentsOfPosts,
+        })
     );
 });
 
