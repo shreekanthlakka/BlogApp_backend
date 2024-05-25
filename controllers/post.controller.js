@@ -82,7 +82,7 @@ const deletePost = asyncHandler(async (req, res) => {
             console.log("RES => ", res);
         }
     }
-    const commentsOfPosts = await Comment.findManyAndDelete({
+    const commentsOfPosts = await Comment.deleteMany({
         authorId: req.user._id,
         postId: postId,
     });
@@ -92,12 +92,9 @@ const deletePost = asyncHandler(async (req, res) => {
             "not able to find and delete comments of post"
         );
     }
-    const postDeleated = await post.remove();
+    await post.remove();
     res.status(200).json(
-        new CustomResponse(200, "post deleted sucessfully", {
-            deleatedPost: postDeleated,
-            commentsDeleted: commentsOfPosts,
-        })
+        new CustomResponse(200, "post deleted sucessfully", {})
     );
 });
 
