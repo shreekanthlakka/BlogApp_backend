@@ -22,9 +22,17 @@ app.use((req, res, next) => {
     console.log(`${req.ip} - ${req.method} - ${req.url} - ${new Date()}`);
     next();
 });
+
+const allowedOrigins = [
+    "http://localhost:5000",
+    "https://blogapp-backend-ko6y.onrender.com",
+];
 app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", req.headers.origin);
-    res.header("Access-Control-Allow-Origin", req.headers.cookie);
+    const origin = req.headers.origin;
+    if (allowedOrigins.includes(origin)) {
+        res.header("Access-Control-Allow-Origin", origin);
+        res.header("Access-Control-Allow-Credentials", true);
+    }
 
     res.header(
         "Access-Control-Allow-Methods",
@@ -34,7 +42,7 @@ app.use((req, res, next) => {
         "Access-Control-Allow-Headers",
         "Origin, X-Requested-With, Content-Type, Accept, Authorization "
     );
-    res.header("Access-Control-Allow-Credentials", true);
+
     next();
 });
 
