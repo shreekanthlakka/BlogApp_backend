@@ -36,6 +36,10 @@ app.use((req, res, next) => {
     next();
 });
 
+app.get("/api/v1/test", (req, res) => {
+    res.json({ message: "All Good" });
+});
+
 import userRoutes from "./routes/user.routes.js";
 import postRoutes from "./routes/post.routes.js";
 
