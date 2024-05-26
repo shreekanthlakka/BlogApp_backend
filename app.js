@@ -25,10 +25,11 @@ app.use((req, res, next) => {
 
 const allowedOrigins = [
     "http://localhost:5173",
-    "blog-app-dun-five.vercel.app",
+    "https://blog-app-dun-five.vercel.app",
 ];
 app.use((req, res, next) => {
     const origin = req.headers.origin;
+    console.log("origin  ==> ", origin);
     if (allowedOrigins.includes(origin)) {
         res.header("Access-Control-Allow-Origin", origin);
         res.header("Access-Control-Allow-Credentials", true);
