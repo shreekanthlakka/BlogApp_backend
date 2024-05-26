@@ -8,7 +8,7 @@ const isLoggedIn = asyncHandler(async (req, res, next) => {
         req.cookies?.accessToken ||
         req.header("Authorization")?.replace("Bearer ", "");
 
-    console.log("TOKEN ==>", token);
+    // console.log("TOKEN ==>", token);
     if (!token) {
         throw new CustomError(401, "not authorized or signed In");
     }
