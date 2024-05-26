@@ -14,9 +14,11 @@ const registerUser = asyncHandler(async (req, res) => {
             .json(new CustomError(400, "bad request", errors.array()));
     }
 
-    const result = await uploadToCloudinary(req.files?.profilePic[0].path);
-    if (!result) {
-        throw new CustomError(400, "failed to upload profilePic");
+    if (req.files) {
+        const result = await uploadToCloudinary(req.files?.profilePic[0].path);
+        if (!result) {
+            throw new CustomError(400, "failed to upload profilePic");
+        }
     }
     const { username, email, password } = req.body;
     const user = await User.create({
@@ -24,8 +26,8 @@ const registerUser = asyncHandler(async (req, res) => {
         email,
         password,
         profilePic: {
-            url: result.secure_url,
-            public_id: result.public_id,
+            url: result?.secure_url,
+            public_id: result?.public_id,
         },
     });
     if (!user) {

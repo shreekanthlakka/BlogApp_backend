@@ -14,8 +14,8 @@ const userSchema = new mongoose.Schema(
             // select: false,
         },
         profilePic: {
-            url: String,
-            public_id: String,
+            url: { type: String, default: "url_link" },
+            public_id: { type: String, default: "default public id" },
         },
         accessToken: {
             type: String,
