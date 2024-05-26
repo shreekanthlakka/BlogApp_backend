@@ -49,7 +49,7 @@ const createPost = asyncHandler(async (req, res) => {
     const post = await Post.create({
         title,
         content,
-        featuredImage: resultUrls,
+        // featuredImage: resultUrls,
         authorId: req.user._id,
     });
     if (!post) {

@@ -22,8 +22,8 @@ const postSchema = new mongoose.Schema(
         ],
         featuredImage: [
             {
-                url: String,
-                public_id: String,
+                url: { type: String, default: "url" },
+                public_id: { type: String, default: "id" },
             },
         ],
     },
