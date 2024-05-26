@@ -50,17 +50,17 @@ const userValidationSchema = {
             errMessage: "password should be between 6 and 20 characters",
         },
     },
-    // profilePic: {
-    //     in: ["body"],
-    //     custom: {
-    //         options: (val, { req }) => {
-    //             if (Object.keys(req.files).length === 0) {
-    //                 throw new Error("profile pic is required");
-    //             }
-    //             return true;
-    //         },
-    //     },
-    // },
+    profilePic: {
+        in: ["body"],
+        custom: {
+            options: (val, { req }) => {
+                if (Object.keys(req.files).length === 0) {
+                    throw new Error("profile pic is required");
+                }
+                return true;
+            },
+        },
+    },
 };
 
 export { userValidationSchema };

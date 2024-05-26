@@ -9,7 +9,7 @@ import {
     updatePost,
 } from "../controllers/post.controller.js";
 import { postValidationSchema } from "../validations/post.validationSchema.js";
-import upload from "../middlewares/multer.js";
+import { uploadMemoryStorage } from "../middlewares/multer.js";
 import { isLoggedIn } from "../middlewares/isLoggedIn.js";
 import {
     createComment,
@@ -25,7 +25,7 @@ router
     .route("/")
     .post(
         isLoggedIn,
-        upload.fields([{ name: "featuredImage", maxCount: 1 }]),
+        uploadMemoryStorage.fields([{ name: "featuredImage", maxCount: 1 }]),
         checkSchema(postValidationSchema),
         createPost
     )

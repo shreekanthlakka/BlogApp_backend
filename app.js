@@ -29,7 +29,6 @@ const allowedOrigins = [
 ];
 app.use((req, res, next) => {
     const origin = req.headers.origin;
-    console.log("origin  ==> ", origin);
     if (allowedOrigins.includes(origin)) {
         res.header("Access-Control-Allow-Origin", origin);
         res.header("Access-Control-Allow-Credentials", true);
@@ -53,8 +52,10 @@ app.get("/api/v1/test", (req, res) => {
 
 import userRoutes from "./routes/user.routes.js";
 import postRoutes from "./routes/post.routes.js";
+import profileRoutes from "./routes/profile.routes.js";
 
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/posts", postRoutes);
+app.use("/api/v1/profile", profileRoutes);
 
 export default app;

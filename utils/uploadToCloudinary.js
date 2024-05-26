@@ -1,4 +1,5 @@
 import { v2 as cloudinary } from "cloudinary";
+import streamifier from "streamifier";
 import fs from "fs";
 
 const uploadToCloudinary = async (localfilepath) => {
@@ -26,4 +27,21 @@ const destroyFromCloudinary = async (file) => {
     }
 };
 
-export { uploadToCloudinary, destroyFromCloudinary };
+const uploadFromBuffer = (req) => {
+    return new Promise((resolve, reject) => {
+        const uploadStream = cloudinary.uploader.upload_stream(
+            {
+                resource_type: "auto",
+            },
+            (err, res) => {
+                if (err) {
+                    reject(err);
+                }
+                resolve(res);
+            }
+        );
+        streamifier.createReadStream(req.buffer).pipe(uploadStream);
+    });
+};
+
+export { uploadToCloudinary, destroyFromCloudinary, uploadFromBuffer };

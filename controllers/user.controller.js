@@ -4,7 +4,10 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { CustomError } from "../utils/customError.js";
 import { CustomResponse } from "../utils/customResponse.js";
 import { sendCookies } from "../utils/sendCookies.js";
-import { uploadToCloudinary } from "../utils/uploadToCloudinary.js";
+import {
+    uploadFromBuffer,
+    uploadToCloudinary,
+} from "../utils/uploadToCloudinary.js";
 
 const registerUser = asyncHandler(async (req, res) => {
     const errors = validationResult(req);
@@ -20,15 +23,18 @@ const registerUser = asyncHandler(async (req, res) => {
     //         throw new CustomError(400, "failed to upload profilePic");
     //     }
     // }
+
+    const result = await uploadFromBuffer(req.files.profilePic[0]);
+
     const { username, email, password } = req.body;
     const user = await User.create({
         username,
         email,
         password,
-        // profilePic: {
-        //     url: result?.secure_url || "url",
-        //     public_id: result?.public_id || "public_id",
-        // },
+        profilePic: {
+            url: result?.secure_url || "url",
+            public_id: result?.public_id || "public_id",
+        },
     });
     if (!user) {
         throw new CustomError(400, "failed to create User");
