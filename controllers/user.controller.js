@@ -26,8 +26,8 @@ const registerUser = asyncHandler(async (req, res) => {
         email,
         password,
         profilePic: {
-            url: result?.secure_url,
-            public_id: result?.public_id,
+            url: result?.secure_url || "url",
+            public_id: result?.public_id || "public_id",
         },
     });
     if (!user) {

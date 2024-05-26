@@ -11,13 +11,11 @@ import { isLoggedIn } from "../middlewares/isLoggedIn.js";
 import upload from "../middlewares/multer.js";
 const router = express.Router();
 
-router
-    .route("/register")
-    .post(
-        upload.fields([{ name: "profilePic", maxCount: 1 }]),
-        checkSchema(userValidationSchema),
-        registerUser
-    );
+router.route("/register").post(
+    // upload.fields([{ name: "profilePic", maxCount: 1 }]),
+    checkSchema(userValidationSchema),
+    registerUser
+);
 
 router
     .route("/login")
