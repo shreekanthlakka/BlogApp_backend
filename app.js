@@ -25,7 +25,7 @@ app.use((req, res, next) => {
 
 const allowedOrigins = [
     "http://localhost:5173",
-    "https://blogapp-backend-ko6y.onrender.com",
+    "blog-app-dun-five.vercel.app",
 ];
 app.use((req, res, next) => {
     const origin = req.headers.origin;
