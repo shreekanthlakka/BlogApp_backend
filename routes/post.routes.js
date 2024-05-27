@@ -25,7 +25,7 @@ router
     .route("/")
     .post(
         isLoggedIn,
-        uploadMemoryStorage.fields([{ name: "featuredImage", maxCount: 1 }]),
+        // uploadMemoryStorage.fields([{ name: "featuredImage", maxCount: 1 }]),
         checkSchema(postValidationSchema),
         createPost
     )

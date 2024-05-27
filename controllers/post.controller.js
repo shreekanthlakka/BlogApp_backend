@@ -35,15 +35,15 @@ const createPost = asyncHandler(async (req, res) => {
     //     });
     // }
 
-    if (req.files.featuredImage.length > 0) {
-        req.files.featuredImage.forEach(async (ele) => {
-            const res = await uploadFromBuffer(ele);
-            resultUrls.push({
-                url: res.secure_url,
-                public_id: res.public_id,
-            });
-        });
-    }
+    // if (req.files.featuredImage.length > 0) {
+    //     req.files.featuredImage.forEach(async (ele) => {
+    //         const res = await uploadFromBuffer(ele);
+    //         resultUrls.push({
+    //             url: res.secure_url,
+    //             public_id: res.public_id,
+    //         });
+    //     });
+    // }
 
     const { title, content } = req.body;
     const post = await Post.create({
